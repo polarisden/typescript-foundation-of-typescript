@@ -94,6 +94,42 @@ const ordersSample = [
 ];
 
 //Start Coding Here
+type OrderStatus = "pending" | "shipped" | "delivered" | "cancelled";
+
+type Order = {
+  orderId: string;
+  status: OrderStatus;
+  productName: string;
+  price: number;
+  quantity: number;
+  discount?: number;
+};
+
+// เป็นการ Cast ค่าจากข้อมูลดิบ ให้เข้ากับ Type ที่เราสร้าง
+const orders: Order[] = ordersSample as Order[]; 
+
+
+function totalByStatusWithDiscount(orders: Order[], targetStatus: OrderStatus): number {
+  let total = 0;
+  
+  for (const order of orders) {
+    if (order.status === targetStatus) {
+      // Logic: (ราคา * จำนวน) - ส่วนลด (ถ้าไม่มีส่วนลดให้เป็น 0)
+      const discount = order.discount || 0; 
+      total += (order.price * order.quantity) - discount;
+    }
+  }
+  
+  return total;
+}
+
+// function totalByStatusWithDiscount(orders: Order[], targetStatus: OrderStatus): number {
+//   return orders.reduce((total, order) => {
+//     return order.status === targetStatus 
+//       ? total + (order.price * order.quantity - (order.discount || 0))
+//       : total;
+//   }, 0);
+// }
 
 const totalShipped = totalByStatusWithDiscount(orders, "shipped");
 console.log("Total for shipped orders with discount:", totalShipped);
