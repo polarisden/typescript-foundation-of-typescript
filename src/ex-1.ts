@@ -1,6 +1,15 @@
 function calculate(a: number, b: number, operator: string): number | string {
-  //Start Coding Here
+    if (operator === "add") {
+      return a+b
+    } else if (operator === "multiply") {
+      return a*b
+    } else if (operator === "divide") {
+      return a/b
+    } else {
+      return "Invalid operator"
+    }
 }
+
 
 console.log(calculate(10, 5, "add")); // 15
 console.log(calculate(10, 5, "multiply")); // 50
