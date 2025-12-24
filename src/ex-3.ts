@@ -1,7 +1,7 @@
 type OrderStatus = "pending" | "shipped" | "delivered" | "cancelled";
 type Order = { orderId: string, status: OrderStatus, productName: string, price: number, quantity: number, discount?: number };
 
-const ordersSample: Order[] = [
+const ordersSample: Order[]= [
   {
     orderId: "ORD001",
     status: "pending",
@@ -97,21 +97,22 @@ const ordersSample: Order[] = [
 ];
 
 //Start Coding Here
+const orders = ordersSample
+
 function totalByStatusWithDiscount(orders: Order[], targetStatus: OrderStatus): number {
   return orders.reduce((acc: number, cur: Order): number => {
-    acc = cur.status === targetStatus ? acc + (cur.price * cur.quantity) - (cur.discount || 0) : acc
-    return acc
+    return cur.status === targetStatus ? acc + (cur.price * cur.quantity) - (cur.discount || 0) : acc
   }, 0)
 }
 
-const totalShipped = totalByStatusWithDiscount(ordersSample, "shipped");
+const totalShipped = totalByStatusWithDiscount(orders, "shipped");
 console.log("Total for shipped orders with discount:", totalShipped);
 
-const totalPending = totalByStatusWithDiscount(ordersSample, "pending");
+const totalPending = totalByStatusWithDiscount(orders, "pending");
 console.log("Total for pending orders:", totalPending);
 
-const totalDelivered = totalByStatusWithDiscount(ordersSample, "delivered");
+const totalDelivered = totalByStatusWithDiscount(orders, "delivered");
 console.log("Total for delivered orders:", totalDelivered);
 
-const totalCancelled = totalByStatusWithDiscount(ordersSample, "cancelled");
+const totalCancelled = totalByStatusWithDiscount(orders, "cancelled");
 console.log("Total for cancelled orders:", totalCancelled);
